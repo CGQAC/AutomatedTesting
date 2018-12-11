@@ -1,5 +1,7 @@
 package GroupID.ATEB_PHPTravels;
 
+import java.util.List;
+
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -38,8 +40,38 @@ public class BookHotel {
 	@Test
 	public void seleniumTest() throws InterruptedException {
 		WebElement webElement;
+		List<WebElement> listWebElement;
 		System.out.println("@Test:seleniumTest");
 		driver.manage().window().maximize();
+		driver.get("https://www.phptravels.net/m-hotels");
 
+		listWebElement = driver.findElements(By.tagName("div"));
+		for (WebElement webele : listWebElement) {
+			try {
+				webele = webele.findElement(By.tagName("input"));
+				webele.sendKeys("London, United Kingdom");
+				System.out.println("found");
+				break;
+			} catch (Exception e) {
+
+			}
+		}
+		
+		listWebElement = driver.findElements(By.tagName("input"));
+		for (WebElement webele : listWebElement) {
+			try {
+				String placeHolder = webele.getAttribute("placeholder");
+				System.out.println(placeHolder);
+				if (placeHolder == "Check in") {
+					System.out.println("found2");
+					webele.click();	
+				}
+			} catch (Exception e) {
+				
+			}
+		}
+		
+
+		Thread.sleep(2000);
 	}
 }
